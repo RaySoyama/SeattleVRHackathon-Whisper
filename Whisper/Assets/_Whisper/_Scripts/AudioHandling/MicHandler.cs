@@ -17,7 +17,7 @@ public class MicHandler : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log(Microphone.devices);
+        Debug.Log(Microphone.devices.ToString());
         //audioSource.clip = Microphone.Start()
     }
 
