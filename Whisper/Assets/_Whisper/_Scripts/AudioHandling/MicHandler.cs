@@ -93,9 +93,12 @@ public class MicHandler : MonoBehaviour
         if(volumeColorer != null)
         {
             MaterialPropertyBlock block = new MaterialPropertyBlock();
-            block.SetColor("_Color", Color.Lerp(minColor, maxColor, Mathf.InverseLerp(0f, maxRecordedSum, sum)));
+            Color c = Color.Lerp(minColor, maxColor, Mathf.InverseLerp(0f, maxRecordedSum, sum));
+            block.SetColor("_Color", c);
             volumeColorer.SetPropertyBlock(block);
-            RenderSettings.skybox.color = Color.Lerp(minColor, maxColor, Mathf.InverseLerp(0f, maxRecordedSum, sum));
+            RenderSettings.skybox.SetColor("_Tint", c);
+            waveFormRenderer.startColor = c;
+            waveFormRenderer.endColor = c;
         }
 
 
