@@ -38,19 +38,19 @@ namespace Valve.VR
 #endif
 
         const BuildTarget recommended_BuildTarget = BuildTarget.StandaloneWindows64;
-        const bool recommended_ShowUnitySplashScreen = false;
+        const bool recommended_ShowUnitySplashScreen = true;
         const bool recommended_DefaultIsFullScreen = false;
         const int recommended_DefaultScreenWidth = 1024;
         const int recommended_DefaultScreenHeight = 768;
         const bool recommended_RunInBackground = true;
         const ResolutionDialogSetting recommended_DisplayResolutionDialog = ResolutionDialogSetting.HiddenByDefault;
-        const bool recommended_ResizableWindow = true;
+        const bool recommended_ResizableWindow = false;
         const D3D11FullscreenMode recommended_FullscreenMode = D3D11FullscreenMode.FullscreenWindow;
         const bool recommended_VisibleInBackground = true;
 #if (UNITY_5_4 || UNITY_5_3 || UNITY_5_2 || UNITY_5_1 || UNITY_5_0)
         const RenderingPath recommended_RenderPath = RenderingPath.Forward;
 #endif
-        const ColorSpace recommended_ColorSpace = ColorSpace.Linear;
+        const ColorSpace recommended_ColorSpace = ColorSpace.Gamma;
         const bool recommended_GpuSkinning = true;
 #if false
 	const bool recommended_SinglePassStereoRendering = true;
