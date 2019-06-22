@@ -77,7 +77,7 @@ public class MicHandler : MonoBehaviour
         float dt = Time.deltaTime;
         float[] samples = new float[waveSamples];//[16384];
         audioSource.GetOutputData(samples, 0);
-        //float sum = samples[0] + samples[samples.Length-1];
+        float sum = samples[0] + samples[samples.Length-1];
         
         for(int i = 9; i < samples.Length; ++i)
         {
@@ -86,16 +86,17 @@ public class MicHandler : MonoBehaviour
             //Debug.DrawLine(new Vector3(i - 1, samples[i] * 1000f, 0f), new Vector3(i, samples[i + 1] * 1000f, 0f), Color.cyan);
         }
         
-        //sum /= samples.Length;
-        //if (sum > maxRecordedSum)
-        //    maxRecordedSum = sum;
+        sum /= samples.Length;
+        if (sum > maxRecordedSum)
+            maxRecordedSum = sum;
         
-        //if(volumeColorer != null)
-        //{
-        //    MaterialPropertyBlock block = new MaterialPropertyBlock();
-        //    block.SetColor("_Color", Color.Lerp(minColor, maxColor, Mathf.InverseLerp(0f, maxRecordedSum, sum)));
-        //    volumeColorer.SetPropertyBlock(block);
-        //}
+        if(volumeColorer != null)
+        {
+            MaterialPropertyBlock block = new MaterialPropertyBlock();
+            block.SetColor("_Color", Color.Lerp(minColor, maxColor, Mathf.InverseLerp(0f, maxRecordedSum, sum)));
+            volumeColorer.SetPropertyBlock(block);
+            RenderSettings.skybox.color = Color.Lerp(minColor, maxColor, Mathf.InverseLerp(0f, maxRecordedSum, sum));
+        }
 
 
         //float[] spectrum = new float[64];
