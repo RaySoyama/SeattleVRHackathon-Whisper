@@ -72,11 +72,11 @@ public class TextSequence : MonoBehaviour
                 fadeInClock = 0f;
         }
         
-        if (!ready && waitClock <= 0f && audioGetter.AverageVolume < texts[idx].threshold)
+        if (!ready && (waitClock <= 0f && audioGetter.AverageVolume < texts[idx].threshold || idx == 0))
         {
             ready = true;
         }
-        else if (ready && audioGetter.AverageVolume >= texts[idx].threshold)
+        else if (ready && ((idx > 0 && audioGetter.AverageVolume >= texts[idx].threshold) || (idx == 0 && Input.GetKey(KeyCode.Q))))
         {
             ready = false;
             waitClock = minWait;
