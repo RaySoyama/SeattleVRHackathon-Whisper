@@ -73,13 +73,7 @@ public class TextSequence : MonoBehaviour
             if (waitClock <= 0f)
                 fadeInClock = 0f;
         }
-<<<<<<< HEAD
-        currentVolume = audioGetter.AverageVolume;
-        if (!ready && waitClock <= 0f && audioGetter.AverageVolume < texts[idx].threshold)
-=======
-        
         if (!ready && (waitClock <= 0f && audioGetter.AverageVolume < texts[idx].threshold || idx == 0))
->>>>>>> aeb91705c64d9ba10a02bd8b06e6c51cc5155ea0
         {
             ready = true;
         }
