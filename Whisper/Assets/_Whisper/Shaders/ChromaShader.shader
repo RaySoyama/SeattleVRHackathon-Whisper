@@ -3,6 +3,8 @@
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
+
+		
     }
     SubShader
     {
@@ -40,29 +42,29 @@
             sampler2D _MainTex;
 
             fixed4 frag (v2f i) : SV_Target
-            {
-                fixed4 col = tex2D(_MainTex, i.uv);
-                // just invert the colors
-				//float a = (col.r + col.g + col.b) / 3;
-			if (col.r <= col.g && col.r <= col.b )
 			{
-				col = col.r;
-			}
+				fixed4 col = tex2D(_MainTex, i.uv);
+				
+				
+				if (col.r <= col.g && col.r <= col.b)
+				{
+					col = col.r;
+				}
 
-			else if (col.g <= col.r && col.g <= col.b)
-			{
-				col = col.g;
-			}
+				else if (col.g <= col.r && col.g <= col.b)
+				{
+					col = col.g;
+				}
 
-			else if (col.b <= col.r && col.b <= col.g)
-			{
-				col = col.b;
-			}
-                //col.rgb = (col.r + col.g + col.b) / 3;
+				else if (col.b <= col.r && col.b <= col.g)
+				{
+					col = col.b;
+				}
+				//col.rgb = (col.r + col.g + col.b) / 3;
 				//col = 1.5;
 
 				return col;
-            }
+			}
             ENDCG
         }
     }
