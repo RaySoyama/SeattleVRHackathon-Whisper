@@ -58,7 +58,11 @@ public class TextSequence : MonoBehaviour
         {
             fadeInClock += Time.deltaTime;
             if (fadeInClock > 1f)
+            {
                 fadeInClock = 1f;
+                if (idx == texts.Length - 1)
+                    enabled = false;
+            }
             textUI.alpha = Mathf.InverseLerp(0f, fadeLength, fadeInClock);
         }
         else if(waitClock > 0f)
@@ -67,7 +71,7 @@ public class TextSequence : MonoBehaviour
             if (waitClock <= 0f)
                 fadeInClock = 0f;
         }
-
+        
         if (!ready && waitClock <= 0f && audioGetter.AverageVolume < texts[idx].threshold)
         {
             ready = true;
