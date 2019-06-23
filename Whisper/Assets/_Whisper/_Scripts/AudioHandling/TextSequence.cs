@@ -20,10 +20,12 @@ public class TextSequence : MonoBehaviour
     [SerializeField] private float threshold;
     [SerializeField] private TMPro.TextMeshProUGUI textUI;
     [SerializeField] private AudioGetter audioGetter;
+    [ReadOnlyField] public float currentVolume;
 
     [HideInInspector] public UnityEvent OnThresholdPassed;
 
-    private int idx;
+
+    public int idx;
     private float waitClock;
     private float fadeOutClock;
     private float fadeInClock;
@@ -71,7 +73,7 @@ public class TextSequence : MonoBehaviour
             if (waitClock <= 0f)
                 fadeInClock = 0f;
         }
-        
+        currentVolume = audioGetter.AverageVolume;
         if (!ready && waitClock <= 0f && audioGetter.AverageVolume < texts[idx].threshold)
         {
             ready = true;
