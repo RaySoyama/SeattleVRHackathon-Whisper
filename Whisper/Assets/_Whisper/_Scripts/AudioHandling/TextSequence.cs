@@ -46,7 +46,7 @@ public class TextSequence : MonoBehaviour
 
     private void TextUpdate()
     {
-        if(fadeOutClock > 0f)
+        if (fadeOutClock > 0f)
         {
             fadeOutClock -= Time.deltaTime;
             if (fadeOutClock <= 0f)
@@ -56,7 +56,7 @@ public class TextSequence : MonoBehaviour
             }
             textUI.alpha = Mathf.InverseLerp(0f, fadeLength, fadeOutClock);
         }
-        else if(fadeInClock < 1f)
+        else if (fadeInClock < 1f)
         {
             fadeInClock += Time.deltaTime;
             if (fadeInClock > 1f)
@@ -67,7 +67,7 @@ public class TextSequence : MonoBehaviour
             }
             textUI.alpha = Mathf.InverseLerp(0f, fadeLength, fadeInClock);
         }
-        else if(waitClock > 0f)
+        else if (waitClock > 0f)
         {
             waitClock -= Time.deltaTime;
             if (waitClock <= 0f)

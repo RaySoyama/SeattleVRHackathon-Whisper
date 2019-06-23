@@ -29,7 +29,7 @@ public class LightController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        //volumeValue = textData.idx / 
 
         spotlight.transform.position = new Vector3(spotlight.transform.position.x, spotRange.x + ((spotRange.y - spotRange.x) * volumeValue), spotlight.transform.position.z);
         _skyMat.material.SetColor("_Color", new Color(1, 0, 0, skyRange.x + (skyRange.y - skyRange.x) * volumeValue));
