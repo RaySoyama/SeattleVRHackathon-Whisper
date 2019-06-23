@@ -11,6 +11,7 @@ public class WaveFormSpawner : MonoBehaviour
     [SerializeField] private float threshold;
     [SerializeField] private int maxSpawns;
     [SerializeField] private AudioGetter audioGetter;
+    [SerializeField] private TextSequence textSequence;
 
     private bool ready = false;
     public int SpawnCount { get; private set; }
@@ -19,7 +20,8 @@ public class WaveFormSpawner : MonoBehaviour
 
     private void Start()
     {
-        audioGetter.OnFinishedGetting.AddListener(CheckVolume);
+        //audioGetter.OnFinishedGetting.AddListener(CheckVolume);
+        textSequence.OnThresholdPassed.AddListener(Spawn);
     }
 
     private void CheckVolume()
@@ -31,13 +33,20 @@ public class WaveFormSpawner : MonoBehaviour
         else if(ready && audioGetter.AverageVolume >= threshold)
         {
             ready = false;
-            GameObject obj = Instantiate(waveFormPrefab);
-            obj.transform.position = Random.onUnitSphere * Random.Range(minDist, maxDist);
-            obj.transform.LookAt(Vector3.zero);
-            ++SpawnCount;
-            if (SpawnCount >= maxSpawns)
-                audioGetter.OnFinishedGetting.RemoveListener(CheckVolume);
+            Spawn();
         }
+    }
+
+    private void Spawn()
+    {
+        GameObject obj = Instantiate(waveFormPrefab);
+        Vector3 pos = Random.onUnitSphere * Random.Range(minDist, maxDist);
+        pos.y = Mathf.Abs(pos.y);
+        obj.transform.position = pos;
+        obj.transform.LookAt(Vector3.zero);
+        ++SpawnCount;
+        if (SpawnCount >= maxSpawns)
+            audioGetter.OnFinishedGetting.RemoveListener(CheckVolume);
     }
 
 }
