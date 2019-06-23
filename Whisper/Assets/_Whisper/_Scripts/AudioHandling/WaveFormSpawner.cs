@@ -12,6 +12,7 @@ public class WaveFormSpawner : MonoBehaviour
     [SerializeField] private int maxSpawns;
     [SerializeField] private AudioGetter audioGetter;
     [SerializeField] private TextSequence textSequence;
+    [SerializeField] private Transform[] spawnPoints;
 
     private bool ready = false;
     public int SpawnCount { get; private set; }
@@ -40,10 +41,18 @@ public class WaveFormSpawner : MonoBehaviour
     private void Spawn()
     {
         GameObject obj = Instantiate(waveFormPrefab);
-        Vector3 pos = Random.onUnitSphere * Random.Range(minDist, maxDist);
-        pos.y = Mathf.Abs(pos.y);
-        obj.transform.position = pos;
-        obj.transform.LookAt(Vector3.zero);
+        if(SpawnCount < spawnPoints.Length)
+        {
+            obj.transform.position = spawnPoints[SpawnCount].position;
+            obj.transform.rotation = spawnPoints[SpawnCount].rotation;
+        }
+        else
+        {
+            Vector3 pos = Random.onUnitSphere * Random.Range(minDist, maxDist);
+            pos.y = Mathf.Abs(pos.y);
+            obj.transform.position = pos;
+            obj.transform.LookAt(Vector3.zero);
+        }
         ++SpawnCount;
         if (SpawnCount >= maxSpawns)
             audioGetter.OnFinishedGetting.RemoveListener(CheckVolume);

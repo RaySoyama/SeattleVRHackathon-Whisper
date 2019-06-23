@@ -87,4 +87,9 @@ public class TextSequence : MonoBehaviour
         }
     }
 
+    public int TextsLength()
+    {
+        return texts.Length;
+    }
+
 }
