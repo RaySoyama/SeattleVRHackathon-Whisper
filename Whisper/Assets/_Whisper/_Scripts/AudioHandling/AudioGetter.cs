@@ -14,9 +14,9 @@ public class AudioGetter : MonoBehaviour
     [SerializeField] private float peakCooldown;
     
     const int spectrumSamples = 64;
-    private float[] spectrum;
-    private float[] spectrumMax;
-    private float[] spectrumSum;
+    public float[] spectrum { get; private set; }
+    public float[] spectrumMax { get; private set; }
+    public float[] spectrumSum { get; private set; }
 
     public const int waveSamples = 256;
     public float[] samples { get; private set; }
@@ -63,7 +63,18 @@ public class AudioGetter : MonoBehaviour
     private void Update()
     {
         float dt = Time.deltaTime;
-        
+
+        AudioListener.GetSpectrumData(spectrum, 0, FFTWindow.Rectangular);
+
+        for (int i = 0; i < spectrumSamples; ++i)
+        {
+            if (spectrum[i] > spectrumMax[i])
+                spectrumMax[i] = spectrum[i];
+
+            spectrumSum[i] /= 1.2f;
+            spectrumSum[i] = spectrum[i] > spectrumSum[i] ? spectrum[i] : spectrumSum[i];
+        }
+
         audioSource.GetOutputData(samples, 0);
         float sum = 0f;
         for (int i = 0; i < samples.Length; ++i)
