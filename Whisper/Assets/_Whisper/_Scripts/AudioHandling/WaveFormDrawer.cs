@@ -11,8 +11,11 @@ public class WaveFormDrawer : MonoBehaviour
     [SerializeField] private float sampleHeightMultiplier;
     [SerializeField] private Transform startPos;
     [SerializeField] private Transform endPos;
-    [SerializeField] private Color visibleColor;
-    [SerializeField] private Color invisibleColor;
+    //[SerializeField] private Color visibleColor;
+    //[SerializeField] private Color invisibleColor;
+    [SerializeField] private Color lowColor;
+    [SerializeField] private Color highColor;
+    [SerializeField] private float highRange;
     [SerializeField] private float opacityThreshold;
     [SerializeField] private float visibleTime;
 
@@ -30,8 +33,8 @@ public class WaveFormDrawer : MonoBehaviour
     {
         audioGetter.OnFinishedGetting.AddListener(DrawLine);
         lineRenderer.positionCount = AudioGetter.waveSamples;
-        lineRenderer.startColor = invisibleColor;
-        lineRenderer.endColor = invisibleColor;
+        //lineRenderer.startColor = invisibleColor;
+        //lineRenderer.endColor = invisibleColor;
     }
 
     private void DrawLine()
@@ -54,7 +57,23 @@ public class WaveFormDrawer : MonoBehaviour
                 lineRenderer.SetPosition(i, point);
             }
 
-            Color c = Color.Lerp(invisibleColor, visibleColor, Mathf.InverseLerp(0f, visibleTime, visibleClock));
+            //Color c = Color.Lerp(invisibleColor, visibleColor, Mathf.InverseLerp(0f, visibleTime, visibleClock));
+
+            float[] spectrum = audioGetter.spectrumSum;
+            float sum = 0f;
+            for (int i = 0; i < spectrum.Length; ++i)
+                sum += spectrum[i];
+
+            Color c = Color.black;
+            int highPoint = (int)(spectrum.Length * highRange);
+            for(int i = 0; i < spectrum.Length; ++i)
+            {
+                float lerp = Mathf.InverseLerp(0f, highPoint, i);
+                c += Color.Lerp(lowColor, highColor, lerp) * (spectrum[i] / sum);
+                //Debug.Log(lerp + " " + Color.Lerp(lowColor, highColor, lerp) + " " + (spectrum[i] / sum) + " " + spectrum[i] + " " + sum);
+            }
+            c.a = Mathf.InverseLerp(0f, visibleTime, visibleClock);
+
             lineRenderer.startColor = c;
             lineRenderer.endColor = c;
         }
