@@ -318,7 +318,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 459164204}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -679,5 +679,30 @@ PrefabInstance:
       propertyPath: endPos
       value: 
       objectReference: {fileID: 1869888632}
+    - target: {fileID: 7407135436932539579, guid: 2bb929e3c03221a42b538c0abafd31a0,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7407135436932539568, guid: 2bb929e3c03221a42b538c0abafd31a0,
+        type: 3}
+      propertyPath: texts.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7407135436932539568, guid: 2bb929e3c03221a42b538c0abafd31a0,
+        type: 3}
+      propertyPath: texts.Array.data[3].text
+      value: FINAL SLIDE
+      objectReference: {fileID: 0}
+    - target: {fileID: 7407135436932539568, guid: 2bb929e3c03221a42b538c0abafd31a0,
+        type: 3}
+      propertyPath: texts.Array.data[3].threshold
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7407135436932539568, guid: 2bb929e3c03221a42b538c0abafd31a0,
+        type: 3}
+      propertyPath: texts.Array.data[3].circles
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2bb929e3c03221a42b538c0abafd31a0, type: 3}
